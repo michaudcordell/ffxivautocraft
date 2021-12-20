@@ -25,7 +25,7 @@ optional arguments:
 ```
 
 ## Example
-Let's say you have your crafting macro (or starting macro for chained macros) placed on your hotbars bound to the `5` key, you are crafting 30 of the item, and you know each craft takes 20 seconds. To use autocraft for this situation, follow the steps below:
+Let's say you have your crafting macro (or starting macro for chained macros) placed on your hotbars bound to the 5 key, you are crafting 30 of the item, and you know each craft takes 20 seconds. To use autocraft for this situation, follow the steps below:
 
 1. Launch FFXIV if you haven't already done so. 
 2. Position yourself somewhere private, like an inn or FC room.
