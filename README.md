@@ -36,5 +36,5 @@ Let's say you have your crafting macro (or starting macro for chained macros) pl
 7. Profit.
 
 ## Notes
-- The easiest ways to determine the craft length is to time it with a stopwatch or to make the macro in teamcraft and use the reported craft duration.
+- The easiest ways to determine the craft length are to time it with a stopwatch or to make the macro in teamcraft and use the reported craft duration.
 - The crafts may be unable to continue if you run out of your starting material quality (HQ or NQ) and have to change the material quality in use for the craft.
