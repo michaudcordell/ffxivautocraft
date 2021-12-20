@@ -1,4 +1,5 @@
 # ffxivautocraft
+Automate long, tedious crafts and get real-time progress updates in the terminal.
 
 ## Usage
 ```
