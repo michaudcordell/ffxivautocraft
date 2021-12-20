@@ -1,25 +1,25 @@
 # ffxivautocraft
 
 ## Usage
-  usage: autocraft.exe [-h] [--click_delay CLICK_DELAY] [--craft_delay CRAFT_DELAY] [--initial_delay INITIAL_DELAY]
-                       craft_count craft_length macro_key
+usage: autocraft.exe [-h] [--click_delay CLICK_DELAY] [--craft_delay CRAFT_DELAY] [--initial_delay INITIAL_DELAY]
+                     craft_count craft_length macro_key
 
-  Automate basic crafting task with macro. For crafts spanning multiple macros, I recommend using the /nextmacro command
-  provided by the Macro Chain Dalamud plugin.
+Automate basic crafting task with macro. For crafts spanning multiple macros, I recommend using the /nextmacro command
+provided by the Macro Chain Dalamud plugin.
 
-  positional arguments:
-    craft_count           number of items to craft
-    craft_length          the duration of the craft macro
-    macro_key             the key corresponding to the crafting macro
+positional arguments:
+  craft_count           number of items to craft
+  craft_length          the duration of the craft macro
+  macro_key             the key corresponding to the crafting macro
 
-  optional arguments:
-    -h, --help            show this help message and exit
-    --click_delay CLICK_DELAY, -clkdel CLICK_DELAY
-                          the time (in seconds) to wait after automated clicking
-    --craft_delay CRAFT_DELAY, -crftdel CRAFT_DELAY
-                          the time (in seconds) to wait after finishing an automated crafting macro
-    --initial_delay INITIAL_DELAY, -initdel INITIAL_DELAY
-                          the time (in seconds) before starting the craft automation
+optional arguments:
+  -h, --help            show this help message and exit
+  --click_delay CLICK_DELAY, -clkdel CLICK_DELAY
+                        the time (in seconds) to wait after automated clicking
+  --craft_delay CRAFT_DELAY, -crftdel CRAFT_DELAY
+                        the time (in seconds) to wait after finishing an automated crafting macro
+  --initial_delay INITIAL_DELAY, -initdel INITIAL_DELAY
+                        the time (in seconds) before starting the craft automation
                         
 ## Example
 Let's say you have your crafting macro (or starting macro for chained macros) placed on your hotbars bound to the `5` key, you are crafting 30 of the item, and you know each craft takes 20 seconds. To use autocraft for this situation, follow the steps below:
