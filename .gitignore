@@ -4,6 +4,7 @@
 # Distribution / packaging
 build/
 bin/
+!**/build.sh
 
 # Environments
 .env
