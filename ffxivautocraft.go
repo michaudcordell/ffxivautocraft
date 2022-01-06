@@ -103,13 +103,13 @@ func main() {
 
 		// increment crafted item count and display progress bar
 		itemsCrafted++
-		SUFFIX := fmt.Sprintf(" %d/%d Items Crafted", itemsCrafted, craftCount)
+		SUFFIX := fmt.Sprintf(" | %d/%d Items Crafted", itemsCrafted, craftCount)
 		progressBar := createProgressBar(itemsCrafted, craftCount, PREFIX,
 			SUFFIX, DECIMAL_PRECISION, BAR_LENGTH, BAR_CHAR)
 		fmt.Println(progressBar)
 
 		// wait before starting crafting for next item
-		robotgo.Sleep(int(craftDelay*1000.0 + rand.Float64()*400))
+		robotgo.MilliSleep(int(craftDelay*1000.0 + rand.Float64()*400))
 	}
 
 	fmt.Println("Crafting complete!")
@@ -132,7 +132,7 @@ func createProgressBar(progress int, total int, prefix string, suffix string,
 	barCount := int(percent * float64(barLength))
 	barsStr := strings.Repeat(barChar, barCount)
 	spacesStr := strings.Repeat(" ", barLength-barCount)
-	formattedPercent := strconv.FormatFloat(percent, 'f', decimalPrecision, 64)
+	formattedPercent := strconv.FormatFloat(percent * 100.0, 'f', decimalPrecision, 64)
 
 	progressBarStr := fmt.Sprintf("%s|%s%s| %s%%%s", prefix, barsStr, spacesStr, formattedPercent, suffix)
 
