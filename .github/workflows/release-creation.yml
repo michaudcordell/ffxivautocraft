@@ -4,9 +4,6 @@ on:
     tags:
       - "v*.*"
 
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
   create-release:
     if: github.event.base_ref == 'refs/heads/main'
