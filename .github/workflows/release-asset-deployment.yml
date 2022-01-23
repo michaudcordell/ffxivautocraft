@@ -47,7 +47,7 @@ jobs:
         with:
           go-version: '1.17'
       - name: Install dependencies
-        run: apt install libx11-dev xcb libxcb-xkb-dev x11-xkb-utils libx11-xcb-dev libxkbcommon-x11-dev
+        run: sudo apt-get install libx11-dev xcb libxcb-xkb-dev x11-xkb-utils libx11-xcb-dev libxkbcommon-x11-dev
       - name: Build linux-amd64
         run: go build -o ffxivautocraft ffxivautocraft.go
       - name: Gzip linux-amd64
@@ -78,7 +78,7 @@ jobs:
       - name: Build macos-arm64
         run: GOOS=darwin GOARCH=arm64 go build -o macos-arm64/ffxivautocraft ffxivautocraft.go
       - name: Build macos-universal
-        run: lipo -create -output macos-amd64/ffxivautocraft macos-arm64/ffxivautocraft macos-universal/ffxivautocraft
+        run: lipo -create macos-amd64/ffxivautocraft macos-arm64/ffxivautocraft -output macos-universal/ffxivautocraft
       - name: Zip macos-amd64
         run: zip -r ffxivautocraft-macos-amd64.zip macos-amd64/ffxivautocraft
       - name: Zip macos-arm64
