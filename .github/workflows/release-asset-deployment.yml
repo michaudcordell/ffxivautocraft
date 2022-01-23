@@ -1,0 +1,112 @@
+name: Release Asset Deployment
+on: 
+  release:
+    types:
+      - created
+
+env:
+  CGO_ENABLED: 1
+
+jobs:
+  build-and-publish-windows:
+    runs-on: windows-latest
+    env:
+      GOOS: windows
+      GOARCH: amd64
+    steps:
+      - name: Checkout release
+        uses: actions/checkout@v2
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.17'
+      - name: Build windows-amd64
+        run: go build -o ffxivautocraft.exe ffxivautocraft.go
+      - name: Zip windows-amd64
+        run: tar -acf ffxivautocraft-windows-amd64.zip ffxivautocraft.exe
+      - name: Upload windows-amd64 release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ffxivautocraft-windows-amd64.zip
+          asset_name: ffxivautocraft-${{ github.event.release.tag_name }}-windows-amd64.zip
+          asset_content_type: application/zip
+
+  build-and-publish-linux:
+    runs-on: ubuntu-latest
+    env:
+      GOOS: linux
+      GOARCH: amd64
+    steps:
+      - name: Checkout release
+        uses: actions/checkout@v2
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.17'
+      - name: Build linux-amd64
+        run: go build -o ffxivautocraft ffxivautocraft.go
+      - name: Gzip linux-amd64
+        run: tar -cvzf ffxivautocraft-linux-amd64.tar.gz ffxivautocraft
+      - name: Upload linux-amd64 release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ffxivautocraft-linux-amd64.tar.gz
+          asset_name: ffxivautocraft-${{ github.event.release.tag_name }}-linux-amd64.tar.gz
+          asset_content_type: application/gzip
+  
+  build-and-publish-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout release
+        uses: actions/checkout@v2
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.17'
+      - name: Create release asset directories
+        run: mkdir macos-amd64 & mkdir macos-arm64 & mkdir macos-universal
+      - name: Build macos-amd64
+        run: GOOS=macos GOARCH=amd64 go build -o macos-amd64/ffxivautocraft ffxivautocraft.go
+      - name: Build macos-arm64
+        run: GOOS=macos GOARCH=arm64 go build -o macos-arm64/ffxivautocraft ffxivautocraft.go
+      - name: Build macos-universal
+        run: lipo -create -output macos-amd64/ffxivautocraft macos-arm64/ffxivautocraft macos-universal/ffxivautocraft
+      - name: Zip macos-amd64
+        run: zip -r ffxivautocraft-macos-amd64.zip macos-amd64/ffxivautocraft
+      - name: Zip macos-arm64
+        run: zip -r ffxivautocraft-macos-arm64.zip macos-arm64/ffxivautocraft
+      - name: Zip macos-universal  
+        run: zip -r ffxivautocraft-macos-universal.zip macos-universal/ffxivautocraft
+      - name: Upload macos-amd64 release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ffxivautocraft-macos-amd64.zip
+          asset_name: ffxivautocraft-${{ github.event.release.tag_name }}-macos-amd64.zip
+          asset_content_type: application/zip
+      - name: Upload macos-arm64 release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ffxivautocraft-macos-arm64.zip
+          asset_name: ffxivautocraft-${{ github.event.release.tag_name }}-macos-arm64.zip
+          asset_content_type: application/zip
+      - name: Uplaod macos-universal release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ffxivautocraft-macos-universal.zip
+          asset_name: ffxivautocraft-${{ github.event.release.tag_name }}-macos-universal.zip
+          asset_content_type: application/zip
